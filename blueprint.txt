@@ -1,0 +1,37 @@
+Project: Roomate agreement
+Group members: Simran Arora, Jasmine Ukonu, Madison Ellis, Julissa Hernandez
+
+
+Program features: 
+- rent split based on # of roomates (not including payment method)
+- utility split (not including transportation)
+- Security deposit split
+
+- chore split 
+
+written portion: 
+- security deposit rule 
+- contact information
+- moving out 
+- house rules 
+
+
+Objects: 
+
+Roomate: 
+one object = one roomate 
+    Attribute: name: roomates name
+    Return: List of split: (appended with rent_split, utility_split and Security_deposit_split)
+    
+    Repr printing list of split 
+
+Bill:
+one object = calculates bill split
+    amount
+    period
+    pays(bill)
+
+Main returns: 
+    PdfReport:
+    filename
+    generate(roomate_1, roomate_2, bill)
