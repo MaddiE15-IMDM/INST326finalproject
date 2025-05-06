@@ -1,3 +1,5 @@
+from fpdf import FPDF
+
 # Roomate Agreement 
 
 #creates an instance of a roomate, giving them a name and a list of bills that will be their responsibility
@@ -38,7 +40,15 @@ class Bill():
                 rm.deposit_share += share
 
 
-class PDF: 
+class PDF(FPDF): 
     '''
     Creates a PDF copy of the roomate agreement
     '''
+    def _init_(self, filename):
+        super().__init__()
+        self.filename = filename
+    def header(self):
+        self.set_font("Times",'U' size=12)
+        self.cell(0,10,'Roomate Agreement', 0,1, 'C')
+        return super().header()
+#unfinished
