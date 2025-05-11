@@ -70,6 +70,7 @@ class PDF(FPDF):
 #unfinished
 
 if __name__=="__main__":
-name = input("Please enter your full name: ")
+    name = input("Please enter your full name: ")
+    roomate = Roommate(name)
 
 
