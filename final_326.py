@@ -164,6 +164,11 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
 if __name__ == "__main__":
     main()
 
+# TESTS 
+# roommate_1 = Roommate('Julissa')
+# roomate_2 = Roommate('Jasmine')
+# rent = Bill()
+
 # might need this later....
 # class PDF(FPDF): 
 #     '''
