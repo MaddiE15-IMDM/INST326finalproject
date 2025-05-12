@@ -156,34 +156,24 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
     chores = get_chores()
 
     # Generate Report
-    report = PdfReport("roommate_agreement.pdf")
+    report = Pdf("roommate_agreement.pdf")
     report.generate(roommates, bill, rules, cleaning_days, chores)
 
 
 if __name__ == "__main__":
     main()
 
-
-
-
-
-
-
-class PDF(FPDF): 
-    '''
-    Creates a PDF copy of the roommate agreement
-    '''
-    def _init_(self, filename):
-        super().__init__()
-        self.filename = filename
-    def header(self):
-        self.set_font("Times",'U' size=12)
-        self.cell(0,10,'Roommate Agreement', 0,1, 'C')
-        return super().header()
-#unfinished
-
-if __name__=="__main__":
-    name = input("Please enter your full name: ")
-    roomate = Roommate(name)
+# might need this later....
+# class PDF(FPDF): 
+#     '''
+#     Creates a PDF copy of the roommate agreement
+#     '''
+#     def _init_(self, filename):
+#         super().__init__()
+#         self.filename = filename
+#     def header(self):
+#         self.set_font("Times",'U' size=12)
+#         self.cell(0,10,'Roommate Agreement', 0,1, 'C')
+#         return super().header()
 
 
