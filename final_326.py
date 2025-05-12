@@ -53,7 +53,6 @@ class Roommate:
                 f"  Security Deposit: ${self.split_list[2]}\n"
                 f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n")
 
-
 class Bill:
     '''
     Calculate the split in financial responsibilities per roomate. 
