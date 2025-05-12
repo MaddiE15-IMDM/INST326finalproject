@@ -73,6 +73,7 @@ class Bill:
         for rm in roommates:
             rm.add_split(rent_split, utility_split, deposit_split) # function from roomates 
 
+# SIMRAN IS WORKING ON THE PDF ISSUES!!! 
 class Pdf:
     def __init__(self, filename):
         self.filename = filename
@@ -91,10 +92,10 @@ class Pdf:
         else:
             print("No common free day found. Consider rotating responsibilities.")
 
-        print("\n--- Chore List (for Manual Assignment) ---")
+        print("\n----- Chore List -----")
         for i, chore in enumerate(chores, 1):
             print(f"{i}. {chore}")
-        print("\n(You can assign these manually in the PDF or rotate weekly.)")
+        print("\n(You can assign these manually or rotate weekly.)")
 
 def find_common_free_day(roommates):
     if not roommates:
