@@ -7,7 +7,7 @@ Program features:
 - utility split (not including transportation)
 - Security deposit split
 
-- chore split 
+- chore split: editable 
 
 written portion: 
 - security deposit rule 
