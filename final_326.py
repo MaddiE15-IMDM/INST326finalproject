@@ -83,7 +83,7 @@ class Pdf:
         print("=" * 40)
         for rm in roommates:
             print(rm)
-        print("\n--- Agreement Terms ---")
+        print("\n----- Agreement Terms -----")
         print(rules_text)
         
         print("\nSuggested Cleaning Day(s):")
@@ -142,7 +142,7 @@ def main():
     roommates = [roommate1, roommate2]
     bill.split(roommates)
 
-    # Agreement text
+    # Agreement text which we decided would be inserted as is 
     rules = """
 Security Deposit Rule: Each roommate is responsible for their share. Any damages will be deducted accordingly.
 Contact Info: Please share phone numbers and emergency contacts.
@@ -150,13 +150,14 @@ Moving Out: A 30-day notice is required before moving out.
 House Rules: Clean up after yourself, no loud music after 10PM, alternate chores weekly.
 """
 
-    # Cleaning day calculation
+    # Cleaning day calculation based on when both roomates are free 
     cleaning_days = find_common_free_day(roommates)
 
-    # Chore collection
+    # Chore collection (input from user )
     chores = get_chores()
 
-    # Generate Report
+    # Generate Report 
+    # TBD on what module to use for this to actually work
     report = Pdf("roommate_agreement.pdf")
     report.generate(roommates, bill, rules, cleaning_days, chores)
 
