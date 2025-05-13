@@ -1,34 +1,19 @@
+'''
+INST326 Final Project 
+Team: Simran Arora, Jasmine Ukonu, Madison Ellis, Julissa Hernandez
+
+This program creates a template for a personalized Roommate Agreement, and downloads it as a PDF to the user's machine
+'''
 from fpdf import FPDF
 
-# Roommate Agreement 
-
-# calculates the bill split and holds all the bills
-# class Bill(): 
-    # '''
-    # Calculates the payments each roommate must contribute 
-    # '''
-
-    # def __init__(self, amount, description, bill_type):
-    #     self.amount = amount
-    #     self.description = description
-    #     self.bill_type = bill_type.lower()  # 'rent', 'utilities', or 'deposit'
-
-    # def pays(self, roommates):
-
-    #     share = self.amount / len(roommates) # allows for multiple roomates
-
-    #     for rm in roommates:
-    #         if self.bill_type == 'rent':
-    #             rm.rent_share += share
-    #         elif self.bill_type == 'utilities':
-    #             rm.utility_share += share
-    #         elif self.bill_type == 'deposit':
-    #             rm.deposit_share += share
-# love the way we have it above, might revisit because it makes our code 
-# more dynamic in terms of how many roomates there can be 
-
-
 class Roommate:
+    '''
+    Holds instances of roommates including their responsibilities and busy/free days 
+
+    Attributes: 
+
+    Returns: 
+    '''
     # a set of days to be used later in order to calculate the days that a roomate is busy
     all_days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
 
