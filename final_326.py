@@ -131,11 +131,13 @@ def main():
 
     # using a loop to create instances of roomates
     roommates = [] # empty list to be filled with instances of Roommate()
-    while len(roommates) <= 5 and len(roommates) > 0: 
+    while len(roommates) <= 5: 
         name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: ").strip()
         if name == 'f' or 'F': 
             break
         roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
+        if len(roommates) > 1:
+            raise ValueError ('You must have at least 2 roommates') # troubleshoot a value less than 2 
 
 
     # Enter Bill Info
@@ -145,7 +147,7 @@ def main():
     period = input("Enter billing period (e.g., May 2025): ")
 
     bill = Bill(rent, utilities, deposit, period)
-    roommates = [roommate1, roommate2]
+    # roommates = [roommate1, roommate2] <-- no longer needed 
     bill.split(roommates)
 
     # Agreement text which we decided would be inserted as is 
