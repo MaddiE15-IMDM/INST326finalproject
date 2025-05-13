@@ -96,6 +96,7 @@ class Pdf:
             print(f"{i}. {chore}")
         print("\n(You can assign these manually or rotate weekly.)")
 
+
 def find_common_free_day(roommates):
     if not roommates:
         return []
@@ -122,14 +123,20 @@ def main():
     print("-----Roommate Agreement Generator-----\n")
 
     # ask user for roomate names 
-    # edit to be a loop: up to 5 roomates allowed 
-    name1 = input("Enter name of roommate 1: ")
-    name2 = input("Enter name of roommate 2: ")
-    roommate1 = Roommate(name1)
-    roommate2 = Roommate(name2)
+        # edit to be a loop: up to 5 roomates allowed 
+    # name1 = input("Enter name of roommate 1: ")
+    # name2 = input("Enter name of roommate 2: ")
+    # roommate1 = Roommate(name1)
+    # roommate2 = Roommate(name2)
 
-    input_schedule(roommate1)
-    input_schedule(roommate2)
+    # using a loop to create instances of roomates
+    roommates = [] # empty list to be filled with instances of Roommate()
+    while len(roommates) <= 5 and len(roommates) > 0: 
+        name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: ").strip()
+        if name == 'f' or 'F': 
+            break
+        roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
+
 
     # Enter Bill Info
     rent = float(input("Enter total rent amount: "))
