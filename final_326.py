@@ -108,20 +108,14 @@ def main():
     print("-----Roommate Agreement Generator-----\n")
 
     # ask user for roomate names 
-        # edit to be a loop: up to 5 roomates allowed 
-    # name1 = input("Enter name of roommate 1: ")
-    # name2 = input("Enter name of roommate 2: ")
-    # roommate1 = Roommate(name1)
-    # roommate2 = Roommate(name2)
-
     # using a loop to create instances of roomates
     roommates = [] # empty list to be filled with instances of Roommate()
     while len(roommates) <= 5: 
-        name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: ").strip()
+        name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: " + '\n').strip()
         if name == 'f' or 'F': 
             break
         roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
-        if len(roommates) > 1:
+        if len(roommates) <= 1:
             raise ValueError ('You must have at least 2 roommates') # troubleshoot a value less than 2 
 
 
@@ -131,8 +125,10 @@ def main():
     deposit = float(input("Enter total security deposit amount: "))
     period = input("Enter billing period (e.g., May 2025): ")
 
+    # creating an instance of Bill() 
     bill = Bill(rent, utilities, deposit, period)
     # roommates = [roommate1, roommate2] <-- no longer needed 
+    # run the split method to portion the bills equally amongst roommates
     bill.split(roommates)
 
     # Agreement text which we decided would be inserted as is 
@@ -157,23 +153,3 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
 
 if __name__ == "__main__":
     main()
-
-# TESTS 
-# roommate_1 = Roommate('Julissa')
-# roomate_2 = Roommate('Jasmine')
-# rent = Bill()
-
-# might need this later....
-# class PDF(FPDF): 
-#     '''
-#     Creates a PDF copy of the roommate agreement
-#     '''
-#     def _init_(self, filename):
-#         super().__init__()
-#         self.filename = filename
-#     def header(self):
-#         self.set_font("Times",'U' size=12)
-#         self.cell(0,10,'Roommate Agreement', 0,1, 'C')
-#         return super().header()
-
-
