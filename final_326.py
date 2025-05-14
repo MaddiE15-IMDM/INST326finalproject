@@ -60,10 +60,22 @@ class Bill:
 # SIMRAN IS WORKING ON THE PDF ISSUES!!! 
 class Pdf:
     def __init__(self, filename):
-        self.filename = filename
+        self.filename = filename # change to be more dynamic
+
+        # create FPDF instance
+        self.pdf = FPDF('P', 'mm', 'Letter')
+        # add the page
+        self.pdf.add_page()
+        # create new page if the first one runs out of room
+        self.pdf.set_auto_page_break(True, 10)
+        # specify fonts ( in our case, times font, regular type and 12 pts )
+        self.pdf.set_font("times", '', 12)
 
     def generate(self, roommates, bill, rules_text, cleaning_days, chores):
-        print(f"\nRoommate Agreement - {bill.period}")
+        
+        # create a title
+        self.pdf.cell(0, 10, f"\nRoommate Agreement - {bill.period}", ln = 1) # ln = 1 means ln = true, this is basically a \n 
+
         print("=" * 40)
         for rm in roommates:
             print(rm)
