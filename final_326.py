@@ -31,6 +31,10 @@ class Roommate:
 
     def get_free_days(self): # subtract all_days by busy_days to get whatever is remaining, for ONE roomate
         return Roommate.all_days - self.busy_days
+    
+    def input_schedule(self):
+        days = input(f"Enter {self.name}'s busy days (comma-separated, e.g., Monday, Friday): ")
+        self.set_busy_days([d.strip() for d in days.split(",")])
 
     def __repr__(self): # display the split in a formatted fashion
         return (f"{self.name.title()}'s Responsibilities:\n"
@@ -158,12 +162,6 @@ def find_common_free_day(roommates):
 
     return sorted(common_days)
 
-
-def input_schedule(roommate):
-    days = input(f"Enter {roommate.name}'s busy days (comma-separated, e.g., Monday, Friday): ")
-    roommate.set_busy_days([d.strip() for d in days.split(",")])
-
-
 def get_chores():
     chores_input = input("Enter chores separated by commas (e.g., Dishes, Vacuum, Trash): ")
     chores = [chore.strip().capitalize() for chore in chores_input.split(",") if chore.strip()]
@@ -190,7 +188,7 @@ def main():
         raise ValueError ('You must have at least 2 roommates')
     
     for rm in roommates: 
-        input_schedule(rm)
+        rm.input_schedule()
 
 
     # Enter Bill Info
