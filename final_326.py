@@ -100,11 +100,19 @@ class Pdf:
         # chore chart 
         # subheader 
         self.pdf.set_font('times', 'B', 12)
-        self.pdf.cell(0, 10, "----- Chore List -----", ln = 1)
+        self.pdf.cell(0, 10, "----- Chore Assignment -----", ln = 1)
+        
+        # Table header
+        self.pdf.set_font('times', 'B', 11)
+        self.pdf.cell(90, 10, "Chore", border = 1)
+        self.pdf.cell(90, 10, "Assigned To", border = 1, ln = 1)
+
         # information
         self.pdf.set_font('times', '', 12)
-        for i, chore in enumerate(chores, 1):
-            self.pdf.multi_cell(0, 10, f"{i}. {chore}")
+        self.pdf.set_font('times', '', 11)
+        for chore in chores:
+            self.pdf.cell(90, 10, chore, border = 1)
+            self.pdf.cell(90, 10, "__________________", border = 1, ln = 1)
         self.pdf.multi_cell(0, 10,
             "Tenants may assign chores according to their schedules. "
             "All roommates are expected to follow the responsibilities outlined in this agreement. "
@@ -126,7 +134,8 @@ class Pdf:
         self.pdf.output(self.filename)
         print(f"\nPDF saved as: {self.filename}")
 
-# maybe put in a chores class?
+# We could have made a chores class but since we are on a tight schedule we are leaving this stray. 
+# in the future if we wished to expand this project, we would likely create a chores class
 def find_common_free_day(roommates):
     if not roommates:
         return []
