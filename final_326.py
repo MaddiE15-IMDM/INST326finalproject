@@ -37,7 +37,7 @@ class Roommate:
                 f"  Rent: ${self.split_list[0]}\n"
                 f"  Utilities: ${self.split_list[1]}\n"
                 f"  Security Deposit: ${self.split_list[2]}\n"
-                f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n")
+                f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n").capitalize()
 
 class Bill:
     '''
