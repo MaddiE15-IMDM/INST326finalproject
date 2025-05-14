@@ -59,7 +59,7 @@ class Bill:
             rm.add_split(rent_split, utility_split, deposit_split) # function from roomates 
 
 # SIMRAN IS WORKING ON THE PDF ISSUES!!! 
-class Pdf:
+class Pdf():
     def __init__(self, filename):
         self.filename = filename
 
@@ -137,6 +137,11 @@ class Pdf:
         else:
             self.pdf.cell(0, 10, "No common free day found. Consider rotating responsibilities.", ln = 1)
         self.pdf.ln()
+
+        # add a footer 
+        self.pdf.set_y(-15) # set position of footer (margin)
+        self.pdf.set_font('times', '', 8) # set font
+        self.cell(0, 10, f'Page {self.pdf.page_no()}/{{nb}}', align = 'R') # create page number and alignment
 
         # save the PDF 
         self.pdf.output(self.filename)
