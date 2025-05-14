@@ -77,7 +77,7 @@ class Pdf:
         # create a title
         self.pdf.set_font('times', 'B', 16)
         self.pdf.cell(0, 10, f"\nRoommate Agreement - {bill.period}", ln = 1, align = 'C') # ln = 1 means ln = true, this is basically a \n 
-        # self.pdf.ln()
+        self.pdf.ln()
 
         # Roommate information
         # subheader
@@ -88,24 +88,29 @@ class Pdf:
         for rm in roommates:
             self.pdf.multi_cell(0, 10, str(rm))
             self.pdf.ln(2)
+        self.pdf.ln()
 
         # agreement terms
         # subheader
         self.pdf.set_font('times', 'B', 12)
         self.pdf.cell(0, 10, "\n----- Agreement Terms -----", ln = 1)
+        self.pdf.ln()
         # information
         self.pdf.set_font('times', '', 12)
         self.pdf.multi_cell(0, 10, rules_text.strip())
+        self.pdf.ln()
         
         # chore chart 
         # subheader 
         self.pdf.set_font('times', 'B', 12)
         self.pdf.cell(0, 10, "----- Chore Assignment -----", ln = 1)
+        self.pdf.ln()
         
         # Table header
         self.pdf.set_font('times', 'B', 11)
         self.pdf.cell(90, 10, "Chore", border = 1)
         self.pdf.cell(90, 10, "Assigned To", border = 1, ln = 1)
+        self.pdf.ln()
 
         # table set up and information
         self.pdf.set_font('times', '', 12)
@@ -118,17 +123,20 @@ class Pdf:
             "All roommates are expected to follow the responsibilities outlined in this agreement. "
             "If chores need to be reassigned, the change must be agreed upon by all affected roommates."
         )
+        self.pdf.ln()
         
         # suggested cleaning day(s)
         # sub header 
         self.pdf.set_font('times', 'B', 12)
         self.pdf.cell(0, 10, "Suggested Cleaning Day(s):", ln = 1)
+        self.pdf.ln()
         # information
         self.pdf.set_font('times', '', 12)
         if cleaning_days:
             self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)), ln = 1)
         else:
             self.pdf.cell(0, 10, "No common free day found. Consider rotating responsibilities.", ln = 1)
+        self.pdf.ln()
 
         # save the PDF 
         self.pdf.output(self.filename)
