@@ -157,7 +157,7 @@ def main():
     roommates = [] # empty list to be filled with instances of Roommate()
     while len(roommates) <= 5: 
         name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: " + '\n').strip()
-        if name == 'f' or 'F': 
+        if name.lower() == 'f': 
             break
         roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
         if len(roommates) <= 1:
