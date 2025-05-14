@@ -14,6 +14,7 @@ class Roommate:
 
     Returns: 
     '''
+    # NEED TO ADD CONTACT INFO!!!
     # a set of days to be used later in order to calculate the days that a roomate is busy
     all_days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
 
@@ -69,29 +70,61 @@ class Pdf:
         # create new page if the first one runs out of room
         self.pdf.set_auto_page_break(True, 10)
         # specify fonts ( in our case, times font, regular type and 12 pts )
-        self.pdf.set_font("times", '', 12)
+        self.pdf.set_font('times', '', 12)
 
     def generate(self, roommates, bill, rules_text, cleaning_days, chores):
         
         # create a title
-        self.pdf.cell(0, 10, f"\nRoommate Agreement - {bill.period}", ln = 1) # ln = 1 means ln = true, this is basically a \n 
+        self.pdf.set_font('times', 'B', 16)
+        self.pdf.cell(0, 10, f"\nRoommate Agreement - {bill.period}", ln = 1, align = 'C') # ln = 1 means ln = true, this is basically a \n 
+        # self.pdf.ln()
 
-        print("=" * 40)
+        # Roommate information
+        # subheader
+        self.pdf.set_font('times', 'B', 12)
+        self.pdf.cell(0, 10, "Roommate Responsibilities:", ln = 1)
+        # information
+        self.pdf.set_font("times", '' , 12)
         for rm in roommates:
-            print(rm)
-        print("\n----- Agreement Terms -----")
-        print(rules_text)
-        
-        print("\nSuggested Cleaning Day(s):")
-        if cleaning_days:
-            print(", ".join(sorted(cleaning_days)))
-        else:
-            print("No common free day found. Consider rotating responsibilities.")
+            self.pdf.multi_cell(0, 10, str(rm))
+            self.pdf.ln(2)
 
-        print("\n----- Chore List -----")
+        # agreement terms
+        # subheader
+        self.pdf.set_font('times', 'B', 12)
+        self.pdf.cell(0, 10, "\n----- Agreement Terms -----", ln = 1)
+        # information
+        self.pdf.set_font('times', '', 12)
+        self.pdf.multi_cell(0, 10, rules_text.strip())
+        
+        # chore chart 
+        # subheader 
+        self.pdf.set_font('times', 'B', 12)
+        self.pdf.cell(0, 10, "----- Chore List -----", ln = 1)
+        # information
+        self.pdf.set_font('times', '', 12)
         for i, chore in enumerate(chores, 1):
-            print(f"{i}. {chore}")
-        print("\n(You can assign these manually or rotate weekly.)")
+            self.pdf.multi_cell(0, 10, f"{i}. {chore}")
+        self.pdf.multi_cell(0, 10,
+            "Tenants may assign chores according to their schedules. "
+            "All roommates are expected to follow the responsibilities outlined in this agreement. "
+            "If chores need to be reassigned, the change must be agreed upon by all affected roommates."
+        )
+        
+        # suggested cleaning day(s)
+        # sub header 
+        self.pdf.set_font('times', 'B', 12)
+        self.pdf.cell(0, 10, "Suggested Cleaning Day(s):", ln = 1)
+        # information
+        self.pdf.set_font('times', '', 12)
+        if cleaning_days:
+            self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)), ln = 1)
+        else:
+            self.pdf.cell(0, 10, "No common free day found. Consider rotating responsibilities.", ln = 1)
+
+        # save the PDF 
+        self.pdf.output(self.filename)
+        print(f"\nPDF saved as: {self.filename}")
 
 
 def find_common_free_day(roommates):
