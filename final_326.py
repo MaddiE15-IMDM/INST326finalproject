@@ -141,7 +141,8 @@ class Pdf():
         # add a footer 
         self.pdf.set_y(-15) # set position of footer (margin)
         self.pdf.set_font('times', '', 8) # set font
-        self.cell(0, 10, f'Page {self.pdf.page_no()}/{{nb}}', align = 'R') # create page number and alignment
+        self.pdf.set_text_color(169,169,169) # make it grey
+        self.pdf.cell(0, 10, f'Page {self.pdf.page_no()}/{{nb}}', align = 'R') # create page number and alignment
 
         # save the PDF 
         self.pdf.output(self.filename)
