@@ -33,11 +33,11 @@ class Roommate:
         return Roommate.all_days - self.busy_days
 
     def __repr__(self): # display the split in a formatted fashion
-        return (f"{self.name}'s Responsibilities:\n"
+        return (f"{self.name.title()}'s Responsibilities:\n"
                 f"  Rent: ${self.split_list[0]}\n"
                 f"  Utilities: ${self.split_list[1]}\n"
                 f"  Security Deposit: ${self.split_list[2]}\n"
-                f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n")
+                f"  Free Days: {', '.join(day.capitalize() for day in sorted(self.get_free_days()))}\n") # trying to make this more official looking
 
 class Bill:
     '''
@@ -125,15 +125,19 @@ class Pdf():
         )
         self.pdf.ln()
         
+        # ensure that the table isnt split into two pages 
+        space = (len(chores) + 2) * 10
+        if self.pdf.get_y() + space > 270:
+            self.pdf.add_page()
+
         # suggested cleaning day(s)
         # sub header 
         self.pdf.set_font('times', 'B', 12)
         self.pdf.cell(0, 10, "Suggested Cleaning Day(s):", ln = 1)
-        self.pdf.ln()
         # information
         self.pdf.set_font('times', '', 12)
         if cleaning_days:
-            self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)), ln = 1)
+            self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)).capitalize(), ln = 1)
         else:
             self.pdf.cell(0, 10, "No common free day found. Consider rotating responsibilities.", ln = 1)
         self.pdf.ln()
