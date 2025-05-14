@@ -193,7 +193,7 @@ def main():
     rent = float(input("Enter total rent amount: "))
     utilities = float(input("Enter total utilities amount: "))
     deposit = float(input("Enter total security deposit amount: "))
-    period = input("Enter billing period (e.g., May 2025): ")
+    period = input("Enter billing period (e.g., May 2025): ").strip()
 
     # creating an instance of Bill() 
     bill = Bill(rent, utilities, deposit, period)
@@ -217,7 +217,9 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
 
     # Generate Report 
     # TBD on what module to use for this to actually work
-    report = Pdf("roommate_agreement.pdf")
+
+    billing_period = period.lower().replace(' ', '_')
+    report = Pdf(f"roommate_agreement_{billing_period}.pdf")
     report.generate(roommates, bill, rules, cleaning_days, chores)
 
 
