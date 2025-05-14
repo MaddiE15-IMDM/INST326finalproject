@@ -107,7 +107,7 @@ class Pdf:
         self.pdf.cell(90, 10, "Chore", border = 1)
         self.pdf.cell(90, 10, "Assigned To", border = 1, ln = 1)
 
-        # information
+        # table set up and information
         self.pdf.set_font('times', '', 12)
         self.pdf.set_font('times', '', 11)
         for chore in chores:
