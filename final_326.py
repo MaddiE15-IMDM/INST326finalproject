@@ -126,7 +126,7 @@ class Pdf:
         self.pdf.output(self.filename)
         print(f"\nPDF saved as: {self.filename}")
 
-
+# maybe put in a chores class?
 def find_common_free_day(roommates):
     if not roommates:
         return []
@@ -159,9 +159,17 @@ def main():
         name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: " + '\n').strip()
         if name.lower() == 'f': 
             break
+        elif name == '': # make sure name isnt empty
+            print('You must provide a valid name. Please Try again\n')
+            continue
         roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
-        if len(roommates) <= 1:
-            raise ValueError ('You must have at least 2 roommates') # troubleshoot a value less than 2 
+    
+    # troubleshoot a value less than 2 
+    if len(roommates) < 2:
+        raise ValueError ('You must have at least 2 roommates')
+    
+    for rm in roommates: 
+        input_schedule(rm)
 
 
     # Enter Bill Info
