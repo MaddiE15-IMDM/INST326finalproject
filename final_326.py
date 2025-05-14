@@ -37,7 +37,7 @@ class Roommate:
                 f"  Rent: ${self.split_list[0]}\n"
                 f"  Utilities: ${self.split_list[1]}\n"
                 f"  Security Deposit: ${self.split_list[2]}\n"
-                f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n").capitalize()
+                f"  Free Days: {', '.join(sorted(self.get_free_days()))}\n")
 
 class Bill:
     '''
@@ -61,7 +61,7 @@ class Bill:
 # SIMRAN IS WORKING ON THE PDF ISSUES!!! 
 class Pdf:
     def __init__(self, filename):
-        self.filename = filename # change to be more dynamic
+        self.filename = filename
 
         # create FPDF instance
         self.pdf = FPDF('P', 'mm', 'Letter')
@@ -219,7 +219,7 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
     # TBD on what module to use for this to actually work
 
     billing_period = period.lower().replace(' ', '_')
-    report = Pdf(f"roommate_agreement_{billing_period}.pdf")
+    report = Pdf(f"roommate_agreement_{billing_period}.pdf") # dynamic file name based on billing period
     report.generate(roommates, bill, rules, cleaning_days, chores)
 
 
