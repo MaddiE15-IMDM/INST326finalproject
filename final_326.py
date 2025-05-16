@@ -194,7 +194,7 @@ class Pdf():
         # save the PDF 
         self.pdf.output(self.filename)
         print(f"\nPDF saved as: {self.filename}")
-        print("Thanks for using our roommate agreement generator where we help keep the peace & split with ease")
+        print("Thanks for using our roommate agreement generator, where we help keep the peace & split with ease")
 
 # We could have made a chores class but since we are on a tight schedule we are leaving this stray. 
 # in the future if we wished to expand this project, we would likely create a chores class
