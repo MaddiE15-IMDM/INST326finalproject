@@ -8,32 +8,37 @@ from fpdf import FPDF
 
 class Roommate:
     '''
-    Holds instances of roommates including their responsibilities and busy/free days 
+    Holds instances of roommates including their responsibilities and busy/free days. This class represents a roommate and their shared bill responsibilities and other tasks.
 
-    Attributes: 
+    Attributes:
+        name(string): The name of the roommate.
+        split_list(list): This is a list that stores details such as rent, security deposit, and utilities.
+        busy_days(set): A set holds unique values only. In this case it will set the days when the roommate is busy.
 
-    Returns: 
+    Returns:
+        get_free_days() - Returns the days "roommate" would not be busy.
+        
     '''
     # NEED TO ADD CONTACT INFO!!!
-    # a set of days to be used later in order to calculate the days that a roomate is busy
-    all_days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
+    # a set of days to be used later in order to calculate the days that a roommate is busy
+    all_days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 
     def __init__(self, name):
         self.name = name
         self.split_list = [] # list of bills divided per roomate
-        self.busy_days = set() # will be used to capture a roomates busy days
+        self.busy_days = set() # will be used to capture a roommate's busy days
 
     def add_split(self, rent_split, utility_split, deposit_split): # sets the split list to become the rent, utility and deposit responsibilities of ONE roomate
         self.split_list = [rent_split, utility_split, deposit_split]
 
-    def set_busy_days(self, days): 
+    def set_busy_days(self, days): # A set only holds unique values (cannot have multiple of the same number or in this case days of the week)
         self.busy_days = set(day.strip().lower() for day in days) # cleans up user input to be matched with the all_days set 
 
     def get_free_days(self): # subtract all_days by busy_days to get whatever is remaining, for ONE roomate
         return Roommate.all_days - self.busy_days
     
     def input_schedule(self):
-        days = input(f"Enter {self.name}'s busy days (comma-separated, e.g., Monday, Friday): ")
+        days = input(f"Enter {self.name}'s busy days (comma-separated like: Monday, Friday): ")
         self.set_busy_days([d.strip() for d in days.split(",")])
 
     def __repr__(self): # display the split in a formatted fashion
