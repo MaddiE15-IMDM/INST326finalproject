@@ -198,16 +198,21 @@ class Pdf():
 # We could have made a chores class but since we are on a tight schedule we are leaving this stray. 
 # in the future if we wished to expand this project, we would likely create a chores class
 def find_common_free_day(roommates):
+    """
+    Args: roommates(list): lists the roommates
+    Returns: a list of roommates shared free days or an empty list
+    """
     if not roommates:
-        return []
+        return [] # for if no roomates, no days to comapre to 
 
     common_days = roommates[0].get_free_days()
     for rm in roommates[1:]:
-        common_days = common_days & rm.get_free_days()
+        common_days = common_days & rm.get_free_days() # finds the common days between roommates 
 
     return sorted(common_days)
 
 def get_chores():
+    """Returns: a formmated list of the chores"""
     chores_input = input("Enter chores separated by commas (e.g., Dishes, Vacuum, Trash): ")
     chores = [chore.strip().capitalize() for chore in chores_input.split(",") if chore.strip()]
     return chores
@@ -216,7 +221,6 @@ def get_chores():
 def main():
     print("-----Roommate Agreement Generator-----\n")
 
-    # ask user for roomate names 
     # using a loop to create instances of roomates
     roommates = [] # empty list to be filled with instances of Roommate()
     while len(roommates) <= 5: 
@@ -236,7 +240,7 @@ def main():
         rm.input_schedule()
 
 
-    # Enter Bill Info
+    # input for information used in the classes 
     rent = float(input("Enter total rent amount: "))
     utilities = float(input("Enter total utilities amount: "))
     deposit = float(input("Enter total security deposit amount: "))
@@ -264,7 +268,6 @@ House Rules: Clean up after yourself, no loud music after 10PM, alternate chores
 
     # Generate Report 
     # TBD on what module to use for this to actually work
-
     billing_period = period.lower().replace(' ', '_')
     report = Pdf(f"roommate_agreement_{billing_period}.pdf") # dynamic file name based on billing period
     report.generate(roommates, bill, rules, cleaning_days, chores)
