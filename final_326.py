@@ -8,33 +8,41 @@ from fpdf import FPDF
 
 class Roommate:
     '''
-    Holds instances of roommates including their responsibilities and busy/free days. This class represents a roommate and their shared bill responsibilities and other tasks.
-
+    Represents and holds the roommates individual information and responsibliites 
     Attributes:
-        name(string): The name of the roommate.
-        split_list(list): This is a list that stores details such as rent, security deposit, and utilities.
-        busy_days(set): A set holds unique values only. In this case it will set the days when the roommate is busy.
+        name(string): the name of the roommate
+        split_list(list): this is a list that stores details such as rent, security deposit, and utilities
+        busy_days(set): a set holds unique values only. In this case it will set the days when the roommate is busy
 
     Returns:
-        get_free_days() - Returns the days "roommate" would not be busy.
-        
+        get_free_days() returns the days "roommate" would not be busy
+
     '''
     # NEED TO ADD CONTACT INFO!!!
     # a set of days to be used later in order to calculate the days that a roommate is busy
     all_days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 
     def __init__(self, name):
+        """ Arg: name(str): name of the roomate"""
         self.name = name
         self.split_list = [] # list of bills divided per roomate
         self.busy_days = set() # will be used to capture a roommate's busy days
 
-    def add_split(self, rent_split, utility_split, deposit_split): # sets the split list to become the rent, utility and deposit responsibilities of ONE roomate
+    def add_split(self, rent_split, utility_split, deposit_split): # sets the split list to become the rent, utility and deposit responsibilities per roomate
+        """
+        Arg:
+            rent_split(float): the rent that will be split
+            utility_split(float): utilitites that will be split 
+            deposite_split(float): holds the deposit that will be split 
+        """
         self.split_list = [rent_split, utility_split, deposit_split]
 
-    def set_busy_days(self, days): # A set only holds unique values (cannot have multiple of the same number or in this case days of the week)
-        self.busy_days = set(day.strip().lower() for day in days) # cleans up user input to be matched with the all_days set 
+    def set_busy_days(self, days): # Sets only hold unqiue values not same numbers or days of the week 
+        """Args: days(list): lists the days roommate is unavaliable"""
+        self.busy_days = set(day.strip().lower() for day in days) # cleans up user input to match with the all_days set 
 
-    def get_free_days(self): # subtract all_days by busy_days to get whatever is remaining, for ONE roomate
+    def get_free_days(self): # subtracts the day variables to get avaliable days, for one roomate
+        """Returns: what days roommate is avaliable """
         return Roommate.all_days - self.busy_days
     
     def input_schedule(self):
@@ -42,6 +50,7 @@ class Roommate:
         self.set_busy_days([d.strip() for d in days.split(",")])
 
     def __repr__(self): # display the split in a formatted fashion
+        """Returns: string of roommates free days and assigned responsilitites """
         return (f"{self.name.title()}'s Responsibilities:\n"
                 f"  Rent: ${self.split_list[0]}\n"
                 f"  Utilities: ${self.split_list[1]}\n"
