@@ -221,6 +221,15 @@ def get_chores():
 def main():
     print("-----Roommate Agreement Generator-----\n")
 
+    # ask how many roommates there are 
+    try:
+        num_roommates = int(input("How many roommates (max 5): ").strip())
+    except ValueError:
+        raise ValueError("Invalid, max 5 roommates")
+    if num_roommates >5:
+        raise ValueError("You reached the max amount of roommates")
+    if num_roommates <2:
+        raise ValueError("You need at least 2 roommates")
     # using a loop to create instances of roomates
     roommates = [] # empty list to be filled with instances of Roommate()
     while len(roommates) <= 5: 
