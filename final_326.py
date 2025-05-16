@@ -194,6 +194,7 @@ class Pdf():
         # save the PDF 
         self.pdf.output(self.filename)
         print(f"\nPDF saved as: {self.filename}")
+        print("Thanks for using our roommate agreement generator where we help keep the peace & split with ease")
 
 # We could have made a chores class but since we are on a tight schedule we are leaving this stray. 
 # in the future if we wished to expand this project, we would likely create a chores class
@@ -222,29 +223,34 @@ def main():
     print("-----Roommate Agreement Generator-----\n")
 
     # ask how many roommates there are 
-    try:
-        num_roommates = int(input("How many roommates (max 5): ").strip())
-    except ValueError:
-        raise ValueError("Invalid, max 5 roommates")
-    if num_roommates >5:
-        raise ValueError("You reached the max amount of roommates")
-    if num_roommates <2:
-        raise ValueError("You need at least 2 roommates")
-    # using a loop to create instances of roomates
-    roommates = [] # empty list to be filled with instances of Roommate()
-    while len(roommates) <= 5: 
-        name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: " + '\n').strip()
-        if name.lower() == 'f': 
+    while True:
+        try:
+            num_roommates = int(input("How many roommates (min 2:max 5): ").strip())
+            if num_roommates >5:
+                raise ValueError("You reached the max amount of roommates")
+            if num_roommates <2:
+                raise ValueError("You need at least 2 roommates")
+        except ValueError:
+            print(f"{ValueError}:Invalid, try again")
+            continue 
+    
+        # using a loop to create instances of roomates
+        roommates = [] # empty list to be filled with instances of Roommate()
+        for number in range(num_roommates): 
+            name = input(f"Roomate {len(roommates) + 1 }'s name, or type F to finish: " + '\n').strip()
+            if name.lower() == 'f': 
+                break
+            elif name == '': # make sure name isnt empty
+                print('You must provide a valid name. Please Try again\n')
+                continue
+            roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
+        
+        # troubleshoot a value less than 2 
+        if len(roommates) < 2:
+            raise ValueError ('You must have at least 2 roommates')
+        else:
             break
-        elif name == '': # make sure name isnt empty
-            print('You must provide a valid name. Please Try again\n')
-            continue
-        roommates.append(Roommate(name)) # can also put instance of roomate in a variable if need be
-    
-    # troubleshoot a value less than 2 
-    if len(roommates) < 2:
-        raise ValueError ('You must have at least 2 roommates')
-    
+        
     for rm in roommates: 
         rm.input_schedule()
 
