@@ -59,24 +59,38 @@ class Roommate:
 
 class Bill:
     '''
-    Calculate the split in financial responsibilities per roomate. 
+    Calculate the split in financial responsibilities per roomate.
+
+    Attributes:
+        rent(float): total rent 
+        utilitites(float): total utilities
+        deposit(float): total deposit 
+        period(str): description of the billling period  
     '''
-    def __init__(self, rent, utilities, deposit, period): # requires full rent, utility fees and deposit 
+    def __init__(self, rent, utilities, deposit, period): # requires full rent, utility fees and deposit amount, period requires specific format
+        """
+        Args:
+            rent(float): total rent 
+            utilitites(float): total utilities
+            deposit(float): total deposit 
+            period(str): description of the billling period
+        """
         self.rent = rent
         self.utilities = utilities
         self.deposit = deposit
         self.period = period # billing period e.g May 2025
 
     def split(self, roommates): # calculate splits in financial by roomate 
+        """Arg: roommates(list): list of roomate instances """
         num = len(roommates) # calculate number of roomates 
         rent_split = round(self.rent / num, 2)
         utility_split = round(self.utilities / num, 2)
         deposit_split = round(self.deposit / num, 2)
 
-        for rm in roommates:
-            rm.add_split(rent_split, utility_split, deposit_split) # function from roomates 
+        for rm in roommates:# calls the roommmate function 
+            rm.add_split(rent_split, utility_split, deposit_split)  
 
-# SIMRAN IS WORKING ON THE PDF ISSUES!!! 
+
 class Pdf():
     def __init__(self, filename):
         self.filename = filename
