@@ -82,7 +82,8 @@ class Bill:
 
     def split(self, roommates): # calculate splits in financial by roomate 
         """Arg: roommates(list): list of roomate instances """
-        num = len(roommates) # calculate number of roomates 
+        # calculate number of roomates 
+        num = len(roommates) 
         rent_split = round(self.rent / num, 2)
         utility_split = round(self.utilities / num, 2)
         deposit_split = round(self.deposit / num, 2)
@@ -92,12 +93,18 @@ class Bill:
 
 
 class Pdf():
-    def __init__(self, filename):
-        self.filename = filename
+    '''
+    Creates and saves a PDF consisting of roommate responsibliites and agreements
 
-        # create FPDF instance
+    Attributes:
+        filename(str): name of the PDF file that will be created and saved
+    '''
+
+    def __init__(self, filename):
+        """Arg: filename(str): namee of the PDF file """
+        self.filename = filename
+        # create FPDF instance and adds it to add_page
         self.pdf = FPDF('P', 'mm', 'Letter')
-        # add the page
         self.pdf.add_page()
         # create new page if the first one runs out of room
         self.pdf.set_auto_page_break(True, 10)
@@ -105,21 +112,31 @@ class Pdf():
         self.pdf.set_font('times', '', 12)
 
     def generate(self, roommates, bill, rules_text, cleaning_days, chores):
-        
-        # create a title
+        """
+        Args:
+            roommates(list): list of roommates 
+            bill(bill): bill instnance
+            rules_text(str): house rules 
+            cleaning_days(list): similar freedays among roommates
+            chores(list): list of chores 
+
+        Side effect: creates and saves a formated PDF 
+        """
+        # create a title for the PDF 
         self.pdf.set_font('times', 'B', 16)
+        # creates a centered title 
         self.pdf.cell(0, 10, f"\nRoommate Agreement - {bill.period}", ln = 1, align = 'C') # ln = 1 means ln = true, this is basically a \n 
         self.pdf.ln()
 
         # Roommate information
         # subheader
         self.pdf.set_font('times', 'B', 12)
-        self.pdf.cell(0, 10, "Roommate Responsibilities:", ln = 1)
+        self.pdf.cell(0, 10, "Roommate Responsibilities:", ln = 1)  
         # information
         self.pdf.set_font("times", '' , 12)
         for rm in roommates:
             self.pdf.multi_cell(0, 10, str(rm))
-            self.pdf.ln(2)
+            self.pdf.ln(2) # creates aligned spacing 
         self.pdf.ln()
 
         # agreement terms
@@ -129,7 +146,7 @@ class Pdf():
         self.pdf.ln()
         # information
         self.pdf.set_font('times', '', 12)
-        self.pdf.multi_cell(0, 10, rules_text.strip())
+        self.pdf.multi_cell(0, 10, rules_text.strip()) # contains the house rules 
         self.pdf.ln()
         
         # chore chart 
@@ -149,7 +166,7 @@ class Pdf():
         self.pdf.set_font('times', '', 11)
         for chore in chores:
             self.pdf.cell(90, 10, chore, border = 1)
-            self.pdf.cell(90, 10, "__________________", border = 1, ln = 1)
+            self.pdf.cell(90, 10, "__________________", border = 1, ln = 1) # blank header for format 
         self.pdf.multi_cell(0, 10,
             "Tenants may assign chores according to their schedules. "
             "All roommates are expected to follow the responsibilities outlined in this agreement. "
@@ -165,11 +182,11 @@ class Pdf():
         # suggested cleaning day(s)
         # sub header 
         self.pdf.set_font('times', 'B', 12)
-        self.pdf.cell(0, 10, "Suggested Cleaning Day(s):", ln = 1)
+        self.pdf.cell(0, 10, "Suggested Cleaning Day(s):", ln = 1) # creates the days header
         # information
         self.pdf.set_font('times', '', 12)
         if cleaning_days:
-            self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)).capitalize(), ln = 1)
+            self.pdf.cell(0, 10, ", ".join(sorted(cleaning_days)).capitalize(), ln = 1) # lists the day roommates can clean
         else:
             self.pdf.cell(0, 10, "No common free day found. Consider rotating responsibilities.", ln = 1)
         self.pdf.ln()
